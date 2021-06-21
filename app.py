@@ -4,8 +4,13 @@ from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from bs4 import BeautifulSoup
 import requests, time, random
+from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
+
+
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///mydb.db"
@@ -60,14 +65,14 @@ def scrapper_func():
                 all_links = soup.select("#containerid a")
                         # print(type(all_links))
                
-                for i in all_links:
+                for link in all_links:
                         link_dict = {}
                         
 
-                        dt_name = i.text 
+                        dt_name = link.text 
                         link_dict['dt_name'] = dt_name
                         
-                        links = i.get('href') 
+                        links = link.get('href') 
                         link_dict['links'] = links         
                         lst.append(link_dict)
                 # dt_lst.append(dt_name)
@@ -82,9 +87,9 @@ def scrapper_func():
     db.session.commit()
 
 
-    for j, item in enumerate(lst, 1):
+    for i, item in enumerate(lst, 1):
    
-        sl_no = j
+        sl_no = i
         info = item['dt_name']
         dwnlinks = item['links']
 
@@ -110,6 +115,7 @@ def home():
     return "Welcome to API :) !"
 
 @app.route("/api", methods = ['GET'])
+@cross_origin()
 def serving_api():
     
     if request.method == 'GET':

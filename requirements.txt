@@ -4,3 +4,4 @@ requests
 gunicorn
 APScheduler
 Flask-SQLAlchemy
+Flask-Cors
