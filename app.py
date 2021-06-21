@@ -91,7 +91,7 @@ def scrapper_func():
         d_bse = my_db(sl_no=sl_no, info=info, dwnlinks=dwnlinks)
         db.session.add(d_bse)  #adding data to current session
         db.session.commit()
-    print('Data updated into database...')
+    print('Database has been successfully updated...')
     # return lst
 
 
@@ -99,7 +99,7 @@ def scrapper_func():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrapper_func,'interval', hours=2)
+sched.add_job(scrapper_func,'interval', minutes=30)
 sched.start()
 
 
