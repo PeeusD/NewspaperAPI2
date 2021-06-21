@@ -82,9 +82,9 @@ def scrapper_func():
     db.session.commit()
 
 
-    for i, item in enumerate(lst, 1):
+    for j, item in enumerate(lst, 1):
    
-        sl_no = i
+        sl_no = j
         info = item['dt_name']
         dwnlinks = item['links']
 
