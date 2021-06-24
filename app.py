@@ -108,11 +108,17 @@ sched.add_job(scrapper_func,'interval', minutes=30)
 sched.start()
 
 
+@app.route("/downloadfile/<filename>", methods = ['GET'])
+def download_file():
+     return "Downloaded :) !"
 
+    
 @app.route("/")
 def home():
     """ Function for test purposes. """
     return "Welcome to API :) !"
+
+
 
 @app.route("/api", methods = ['GET'])
 @cross_origin()
