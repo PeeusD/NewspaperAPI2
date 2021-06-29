@@ -101,7 +101,7 @@ def scrapper_func():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrapper_func,'interval', minutes=5)
+sched.add_job(scrapper_func,'interval', minutes=50)
 sched.start()
 
 
