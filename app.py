@@ -5,15 +5,14 @@ from flask_sqlalchemy import SQLAlchemy
 from bs4 import BeautifulSoup
 import requests, time, random, os
 from flask_cors import CORS, cross_origin
-
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__)
-
 
 CORS(app, resources={r"/api/*": {"origins": "*"}})  # add your domain name relplacing with *
 app.config['CORS_HEADERS'] = 'Content-Type'
 
-
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')  # set DATABASE URL env vars for heroku postgres DB
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -55,8 +54,8 @@ def scrapper_func():
     
     lst = []    
     for i in range(len(url)):
-        rand_heads = random.randint(0,5) 
-        time.sleep(random.randint(5,15))
+        rand_heads = random.randint(0,3) 
+        # time.sleep(random.randint(5,15))
         res = requests.get(url[i], headers = headers[rand_heads])
         print(url[i])
         if res.status_code == 200 :
@@ -79,7 +78,7 @@ def scrapper_func():
                 
         else:
             print("website down") 
-        time.sleep(random.randint(5,15))      
+        time.sleep(random.randint(3,8))      
     # print(lst)
    
    #deleting for all records
@@ -101,7 +100,7 @@ def scrapper_func():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrapper_func,'interval', minutes=10)
+sched.add_job(scrapper_func,'interval', minutes=3)  #Change timer for debugging
 sched.start()
 
 
