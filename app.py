@@ -3,7 +3,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from bs4 import BeautifulSoup
-import requests, time, random, os
+import requests, time, random, os, re
 from flask_cors import CORS, cross_origin
 from dotenv import load_dotenv
 load_dotenv()

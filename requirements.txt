@@ -6,3 +6,4 @@ APScheduler
 Flask-SQLAlchemy
 Flask-Cors
 python-dotenv
+regex
