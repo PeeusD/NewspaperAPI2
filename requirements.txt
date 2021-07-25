@@ -7,3 +7,4 @@ Flask-SQLAlchemy
 Flask-Cors
 python-dotenv
 regex
+psycopg2
