@@ -3,17 +3,17 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from flask import Flask, render_template, request, redirect, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from bs4 import BeautifulSoup
-import requests, time, random
+import requests, time, random, os
 from flask_cors import CORS, cross_origin
 
 app = Flask(__name__)
 
 
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/api/*": {"origins": "*"}})  # add your domain name relplacing with *
 app.config['CORS_HEADERS'] = 'Content-Type'
 
 
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///mydb.db"
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
@@ -101,7 +101,7 @@ def scrapper_func():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrapper_func,'interval', minutes=50)
+sched.add_job(scrapper_func,'interval', minutes=10)
 sched.start()
 
 
