@@ -11,8 +11,14 @@ app = Flask(__name__)
 
 CORS(app, resources={r"/api/*": {"origins": "*"}})  # add your domain name relplacing with *
 app.config['CORS_HEADERS'] = 'Content-Type'
+uri = os.getenv("DATABASE_URL")  # set DATABASE URL env vars for heroku postgres DB
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')  # set DATABASE URL env vars for heroku postgres DB
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+    app.config['SQLALCHEMY_DATABASE_URI'] = uri # set DATABASE URL env vars for heroku postgres DB
+else:
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv("DATABASE_URL")
+
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
