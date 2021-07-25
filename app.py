@@ -88,8 +88,8 @@ def scrapper_func():
     # print(lst)
    
    #deleting for all records
-    db.session.query(my_db).delete()
-    db.session.commit()
+    # db.session.query(my_db).delete()
+    # db.session.commit()
 
 
     for i, item in enumerate(lst, 1):
