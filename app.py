@@ -118,7 +118,7 @@ def download_file():
 @app.route("/")
 def home():
     """ Function for test purposes. """
-    return "Welcome to API :) !"
+    return "<h1>Welcome to API :) !</h1>"
 
 
 
@@ -141,11 +141,6 @@ def serving_api():
         return jsonify(data = all_db)
 
 
-    
-
-    
-   
-
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=False, use_reloader=False)
