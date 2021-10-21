@@ -106,7 +106,7 @@ def scrapper_func():
 
 
 sched = BackgroundScheduler(daemon=True)
-sched.add_job(scrapper_func,'interval', minutes=3)  #Change timer for debugging
+sched.add_job(scrapper_func,'interval', minutes=30)  #Change timer for debugging
 sched.start()
 
 
